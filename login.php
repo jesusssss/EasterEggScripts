@@ -13,9 +13,12 @@ if(pget("username") && pget("password")) {
     $res = $GLOBALS["db"]->query($sql);
 
     if($res->num_rows !== 0) {
-        $result["success"] = true;
-        $result["username"] = $username;
-        $result["password"] = $password;
+        while($row = $res->fetch_assoc()) {
+            $result["success"]  = true;
+            $result["id"]       = $row["id"];
+            $result["username"] = $row["username"];
+            $result["password"] = $row["password"];
+        }
     }
 }
 echo json_encode($result);

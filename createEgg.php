@@ -2,18 +2,25 @@
 include("_config.php");
 
 $userId = pget("userId");
-$friendsIds = pget("friendsIds");
+$uId = intval($userId);
+$friendIds = $_POST["friendIds"];
 $gift = pget("gift");
 $lat = pget("lat");
 $lng = pget("lng");
 $radius = pget("radius");
+$null = NULL;
 $date = new DateTime();
 
-$sqlGift = "INSERT INTO eggGift ('data') VALUES ('$gift')";
-$GLOABLS["db"]->query($sqlGift);
+
+$sqlGift = "INSERT INTO eggGift (gift) VALUES ('$gift')";
+$GLOBALS["db"]->query($sqlGift);
 $giftId  = $GLOBALS["db"]->insert_id;
 
-foreach($friendsIds as $friendId) {
-    $sqlEgg = "INSERT INTO eggLocations (lat, lng, radius, byUser, toUser, egg) VALUES ('$lat','$lng','$radius','$userId','$friendId','$giftId')";
-    $GLOBALS["db"]->query($sqlEgg);
+$query = "INSERT INTO eggLocations (lat, lng, radius, available, byUser, toUser, egg) VALUES(?, ?, ?, ?, ?, ? ,?)";
+
+$conn = $GLOBALS["db"]->prepare($query);
+
+foreach ($friendIds as $id) {
+    $conn->bind_param("sssssss", $lat, $lng, $radius, $null, $userId, $id, $giftId);
+    $conn->execute();
 }

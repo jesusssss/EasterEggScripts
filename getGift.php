@@ -11,7 +11,7 @@ if($res->num_rows !== 0) {
     while($row = $res->fetch_assoc()) {
         $result[] = array(
             "id" => $row["id"],
-            "data" => $row["data"]
+            "gift" => $row["gift"]
         );
     }
 }

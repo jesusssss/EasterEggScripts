@@ -24,6 +24,8 @@ if(pget("email") && pget("username") && pget("password")) {
         $GLOBALS["db"]->query($createUserInfo);
 
         $result["success"] = true;
+    } else {
+        $result["success"] = false;
     }
 }
 echo json_encode($result);

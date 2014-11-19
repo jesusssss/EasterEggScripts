@@ -2,7 +2,7 @@
 include("_config.php");
 
 $userId = pget("userId");
-$sql = "SELECT * FROM eggLocations LEFT JOIN userInfo ON eggLocations.toUser = userInfo.userId WHERE eggLocations.byUser = '$userId'";
+$sql = "SELECT * FROM eggLocations LEFT JOIN userInfo ON eggLocations.toUser = userInfo.userId WHERE eggLocations.byUser = '$userId' ORDER BY eggLocations.id DESC";
 $res = $GLOBALS["db"]->query($sql);
 
 $result = array();

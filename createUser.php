@@ -8,8 +8,9 @@ $result["success"] = false;
 /* Validate */
 if(pget("email") && pget("username") && pget("password")) {
     $username = pget("username");
-    $password = pget("password");
+    $password = md5(pget("password"));
     $email = pget("email");
+    $displayname = pget("displayname");
 
     $sqlTest = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
 
@@ -20,7 +21,7 @@ if(pget("email") && pget("username") && pget("password")) {
         $GLOBALS["db"]->query($createUser);
         $_userId = $GLOBALS["db"]->insert_id;
 
-        $createUserInfo = "INSERT INTO userInfo (userId,profileImage,firstname,lastname) SELECT '$_userId', profileImage, firstname, lastname FROM userInfo WHERE id = 1";
+        $createUserInfo = "INSERT INTO userInfo (userId,profileImage,firstname,lastname) SELECT '$_userId', profileImage, '$displayname', lastname FROM userInfo WHERE id = 1";
         $GLOBALS["db"]->query($createUserInfo);
 
         $result["success"] = true;

@@ -2,7 +2,7 @@
 include("_config.php");
 
 $userId = pget("userid");
-$sql = "SELECT * FROM eggLocations WHERE toUser = '$userId' AND available IS NULL";
+$sql = "SELECT * FROM eggLocations WHERE toUser = '$userId' AND available IS NULL ORDER BY id DESC";
 $res = $GLOBALS["db"]->query($sql);
 
 $result = array();

@@ -7,7 +7,7 @@ $result["success"] = false;
 /* Validate */
 if(pget("username") && pget("password")) {
     $username = pget("username");
-    $password = pget("password");
+    $password = md5(pget("password"));
 
     $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
     $res = $GLOBALS["db"]->query($sql);

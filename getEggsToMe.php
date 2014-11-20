@@ -25,7 +25,8 @@ if($res->num_rows !== 0) {
             "userImage" => $row["profileImage"],
             "firstname" => $row["firstname"],
             "lastname" => $row["lastname"],
-            "status" => $status
+            "status" => $status,
+            "dateTime" => date("d M Y H:i", strtotime($row["dateTime"]))
         );
     }
 }
